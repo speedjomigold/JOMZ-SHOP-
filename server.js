@@ -78,6 +78,10 @@ app.use(
 
 );
 
+console.log(
+    "SESSION_SECRET exists:",
+    !!process.env.SESSION_SECRET
+);
 
 app.use(
 
