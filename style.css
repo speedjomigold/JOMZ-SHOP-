@@ -1538,3 +1538,88 @@ footer p {
     }
 
 }
+
+/* ==========================================
+   JOMZ SHOP PAYMENT POPUPS
+========================================== */
+
+.payment-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.payment-popup-box {
+    width: 100%;
+    max-width: 420px;
+    background: #111;
+    border: 2px solid orange;
+    border-radius: 18px;
+    padding: 28px 22px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255, 165, 0, 0.5);
+    animation: paymentPopupShow 0.35s ease;
+}
+
+.payment-popup-box h2 {
+    margin-top: 0;
+    color: orange;
+    font-size: 22px;
+    text-shadow: 0 0 10px orange;
+}
+
+.payment-popup-box p {
+    color: white;
+    line-height: 1.6;
+}
+
+.payment-schedule {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: rgba(255, 165, 0, 0.12);
+    border: 1px solid orange;
+    border-radius: 10px;
+    padding: 12px;
+    margin: 12px 0;
+    color: white;
+}
+
+.payment-schedule strong {
+    color: orange;
+}
+
+.payment-schedule.closed strong {
+    color: #ff5555;
+}
+
+.payment-popup-box button {
+    margin-top: 15px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    background: orange;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 165, 0, 0.5);
+}
+
+@keyframes paymentPopupShow {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

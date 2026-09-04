@@ -406,169 +406,183 @@ if (topup) {
 
 }
 
+
 // ==========================================
 // PLACE ORDER
 // ==========================================
 
 function placeOrder() {
 
-const playerIDElement =
-    document.getElementById(
-        "playerID"
-    );
+    const payButton =
+    document.getElementById("payButton");
 
-
-if (!playerIDElement) {
-
-    alert(
-        "Player ID field not found."
-    );
-
-    return;
-
+if (payButton) {
+    payButton.style.display = "none";
 }
-
-
-const playerID =
-    playerIDElement.value.trim();
-
-
-if (!playerID) {
-
-    alert(
-        "Please enter your Free Fire Player ID."
-    );
-
-    return;
-
-}
-
-
-if (!selectedPackage) {
-
-    alert(
-        "Please select a diamond package."
-    );
-
-    return;
-
-}
-
-
-localStorage.setItem(
-    "jomzPlayerID",
-    playerID
-);
-
-
-fetch(
-    "/api/orders",
-    {
-
-        method:
-            "POST",
-
-        headers: {
-
-            "Content-Type":
-                "application/json"
-
-        },
-
-        body: JSON.stringify({
-
-            name:
-                playerID,
-
-            product:
-                selectedPackage,
-
-            quantity:
-                1,
-
-            price:
-                selectedPrice
-
-        })
-
-    }
-)
-
-.then(response => {
-
-    if (!response.ok) {
-
-        throw new Error(
-            "Server error"
-        );
-
+    // Check payment/order opening hours first
+    if (!isPaymentActive()) {
+        showOrderClosedPopup();
+        return;
     }
 
-    return response.json();
 
-})
-
-.then(data => {
-
-    if (data.success) {
-
-        localStorage.setItem(
-            "jomzOrderId",
-            data.orderId
+    const playerIDElement =
+        document.getElementById(
+            "playerID"
         );
 
 
-        orderCreated = true;
+    if (!playerIDElement) {
 
-        notificationShown = false;
+        alert(
+            "Player ID field not found."
+        );
+
+        return;
+
+    }
 
 
-        const payButton =
-            document.getElementById(
-                "payButton"
+    const playerID =
+        playerIDElement.value.trim();
+
+
+    if (!playerID) {
+
+        alert(
+            "Please enter your Free Fire Player ID."
+        );
+
+        return;
+
+    }
+
+
+    if (!selectedPackage) {
+
+        alert(
+            "Please select a diamond package."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "jomzPlayerID",
+        playerID
+    );
+
+
+    fetch(
+        "/api/orders",
+        {
+
+            method:
+                "POST",
+
+            headers: {
+
+                "Content-Type":
+                    "application/json"
+
+            },
+
+            body: JSON.stringify({
+
+                name:
+                    playerID,
+
+                product:
+                    selectedPackage,
+
+                quantity:
+                    1,
+
+                price:
+                    selectedPrice
+
+            })
+
+        }
+    )
+
+    .then(response => {
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server error"
             );
-
-
-        if (payButton) {
-
-            payButton.style.display =
-                "inline-block";
 
         }
 
+        return response.json();
+
+    })
+
+    .then(data => {
+
+        if (data.success) {
+
+            localStorage.setItem(
+                "jomzOrderId",
+                data.orderId
+            );
+
+
+            orderCreated = true;
+
+            notificationShown = false;
+
+
+            const payButton =
+                document.getElementById(
+                    "payButton"
+                );
+
+
+            if (payButton) {
+
+                payButton.style.display =
+                    "inline-block";
+
+            }
+
+
+            alert(
+                "Order received successfully!\n\n" +
+                "Order ID: " +
+                data.orderId +
+                "\nStatus: Pending"
+            );
+
+
+            checkOrderStatus();
+
+        }
+
+        else {
+
+            alert(
+                data.message ||
+                "Could not create order."
+            );
+
+        }
+
+    })
+
+    .catch(error => {
+
+        console.error(error);
 
         alert(
-            "Order received successfully!\n\n" +
-            "Order ID: " +
-            data.orderId +
-            "\nStatus: Pending"
+            "Could not connect to the JOMZ SHOP server."
         );
 
-
-        checkOrderStatus();
-
-    }
-
-    else {
-
-        alert(
-            data.message ||
-            "Could not create order."
-        );
-
-    }
-
-})
-
-.catch(error => {
-
-    console.error(error);
-
-    alert(
-        "Could not connect to the JOMZ SHOP server."
-    );
-
-});
+    });
 
 }
 
@@ -1403,21 +1417,239 @@ function scrollToTop() {
     });
 }
 
-// JOMZ SHOP LOADING TEST
+// JOMZ SHOP LOADING + PAYMENT SCHEDULE
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const loader = document.getElementById("jomzLoader");
+    const loader =
+        document.getElementById("jomzLoader");
+
+    const paymentPopup =
+        document.getElementById(
+            "paymentSchedulePopup"
+        );
 
     if (!loader) {
-        console.log("JOMZ LOADER NOT FOUND");
+        console.log(
+            "JOMZ LOADER NOT FOUND"
+        );
         return;
     }
 
-    console.log("JOMZ LOADER FOUND");
+    console.log(
+        "JOMZ LOADER FOUND"
+    );
+
 
     setTimeout(function () {
+
+        // Hide the loader
         loader.classList.add("hide");
+        
+        setTimeout(() => {
+    const popup =
+        document.getElementById("paymentSchedulePopup");
+
+    if (popup) {
+        popup.style.display = "flex";
+    }
+}, 500);
+
+
+        // Show payment schedule
+        // immediately after loader finishes
+        if (paymentPopup) {
+
+            paymentPopup.style.display =
+                "flex";
+
+        }
+
     }, 3000);
 
 });
+
+
+// ===============================
+// JOMZ SHOP PAYMENT SCHEDULE
+// ===============================
+
+function isPaymentActive() {
+    const now = new Date();
+
+    // Nigeria time (WAT)
+    const nigeriaTime = new Date(
+        now.toLocaleString("en-US", {
+            timeZone: "Africa/Lagos"
+        })
+    );
+
+    const day = nigeriaTime.getDay();
+    const hour = nigeriaTime.getHours();
+
+    // Sunday = 0
+    // Monday = 1
+    // Saturday = 6
+
+    // Monday - Saturday, 9 AM - 5 PM
+    return day >= 1 && day <= 6 && hour >= 9 && hour < 17;
+}
+
+
+
+
+
+// ===============================
+// CLOSE PAYMENT POPUP
+// ===============================
+
+function closePaymentPopup() {
+    const popup =
+        document.getElementById("paymentSchedulePopup");
+
+    if (popup) {
+        popup.style.display = "none";
+    }
+}
+
+
+// ===============================
+// SHOW ORDER CLOSED POPUP
+// ===============================
+
+function showOrderClosedPopup() {
+
+    const popup =
+        document.getElementById(
+            "orderClosedPopup"
+        );
+
+    const message =
+        document.getElementById(
+            "orderClosedMessage"
+        );
+
+    if (!popup || !message) return;
+
+
+    const now = new Date();
+
+    const nigeriaTime =
+        new Date(
+            now.toLocaleString(
+                "en-US",
+                {
+                    timeZone:
+                        "Africa/Lagos"
+                }
+            )
+        );
+
+
+    const day =
+        nigeriaTime.getDay();
+
+    const hour =
+        nigeriaTime.getHours();
+
+
+    let nextOpening;
+
+
+    // Monday - Friday before 9 AM
+    if (
+        day >= 1 &&
+        day <= 5 &&
+        hour < 9
+    ) {
+
+        nextOpening =
+            "today at 9:00 AM";
+
+    }
+
+    // Monday - Friday after 5 PM
+    else if (
+        day >= 1 &&
+        day <= 5 &&
+        hour >= 17
+    ) {
+
+        nextOpening =
+            "tomorrow at 9:00 AM";
+
+    }
+
+    // Saturday before 9 AM
+    else if (
+        day === 6 &&
+        hour < 9
+    ) {
+
+        nextOpening =
+            "today at 9:00 AM";
+
+    }
+
+    // Saturday after 5 PM
+    else if (
+        day === 6 &&
+        hour >= 17
+    ) {
+
+        nextOpening =
+            "Monday at 9:00 AM";
+
+    }
+
+    // Sunday
+    else {
+
+        nextOpening =
+            "Monday at 9:00 AM";
+
+    }
+
+
+    message.innerHTML =
+        "Orders are currently closed.<br><br>" +
+        "Payment is active Monday – Saturday, " +
+        "9:00 AM – 5:00 PM.<br><br>" +
+        "<strong>Next available: " +
+        nextOpening +
+        ".</strong>";
+
+
+    popup.style.display =
+        "flex";
+}
+
+// ===============================
+// CLOSE ORDER CLOSED POPUP
+// ===============================
+
+function closeOrderClosedPopup() {
+
+    const popup =
+        document.getElementById("orderClosedPopup");
+
+    if (popup) {
+        popup.style.display = "none";
+    }
+}
+
+// ==========================================
+// SHOW PAYMENT SCHEDULE AFTER LOADER
+// ==========================================
+
+function showPaymentScheduleAfterLoader() {
+
+    const popup =
+        document.getElementById(
+            "paymentSchedulePopup"
+        );
+
+    if (popup) {
+        popup.style.display = "flex";
+    }
+}
