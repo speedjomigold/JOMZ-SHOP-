@@ -1327,44 +1327,28 @@ app.get(
 // START SERVER
 // ==========================================
 
-const server = app.listen(
+if (require.main === module) {
 
-    PORT,
+    const server = app.listen(
+        PORT,
+        "0.0.0.0",
+        () => {
+            console.log(
+                "JOMZ SHOP SERVER IS RUNNING"
+            );
+        }
+    );
 
-    "0.0.0.0",
+    server.on(
+        "error",
+        (error) => {
+            console.error(
+                "SERVER ERROR:",
+                error
+            );
+        }
+    );
 
-    () => {
+}
 
-        console.log(
-
-            "JOMZ SHOP SERVER IS RUNNING"
-
-        );
-
-    }
-
-);
-
-
-server.on(
-
-    "error",
-
-    (
-
-        error
-
-    ) => {
-
-        console.error(
-
-            "SERVER ERROR:",
-
-            error
-
-        );
-
-    }
-
-);
-
+module.exports = app;
