@@ -2,6 +2,7 @@
 // JOMZ SHOP BACKEND
 // SUPABASE VERSION
 // ==========================================
+const path = require("path");
 
 require("dotenv").config();
 
@@ -55,6 +56,10 @@ const supabase = createClient(
 // ==========================================
 
 const app = express();
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+});
 
 app.use(express.static(__dirname));
 
