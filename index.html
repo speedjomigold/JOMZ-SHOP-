@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JOMZ SHOP | Free Fire Top Up</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="jomzLoader">
+    <div class="loader-logo">
+        <span class="letter">J</span>
+        <span class="letter">O</span>
+        <span class="letter">M</span>
+        <span class="letter">Z</span>
+        <span class="space"></span>
+        <span class="letter shop-letter">S</span>
+        <span class="letter shop-letter">H</span>
+        <span class="letter shop-letter">O</span>
+        <span class="letter shop-letter">P</span>
+    </div>
+</div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">JOMZ <span>SHOP</span></div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#topup">Top Up</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>FREE FIRE <span>TOP UP</span></h1>
+
+            <p>
+                Fast and easy Free Fire top-up services.
+                Select your package and place your order.
+            </p>
+
+            <button onclick="scrollToTopUp()">
+                TOP UP NOW
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- Top Up Section -->
+    <section class="topup" id="topup">
+
+        <h2>JOMZ SHOP <span>TOP UP</span></h2>
+
+        <div class="topup-container">
+
+            <!-- Player ID -->
+            <div class="form-box">
+
+                <label>Free Fire Player ID</label>
+
+                <input
+                    type="text"
+                    id="playerID"
+                    placeholder="Enter your Player ID"
+                >
+
+            </div>
+
+
+            <!-- Diamond Packages -->
+            <h3>Select Diamond Package</h3>
+
+            <div class="packages">
+                
+                <div class="package" onclick="selectPackage(this, '50 Diamonds', '₦800')">
+    <h3>50 💎</h3><p>₦800</p>
+</div>
+
+                <div class="package" onclick="selectPackage(this, '100 Diamonds', '₦1,600')">
+                    <h3>100 💎</h3>
+                    <p>₦1600</p>
+                </div>
+
+                <div class="package" onclick="selectPackage(this, '310 Diamonds', '₦4,800')">
+                    <h3>310 💎</h3>
+                    <p>₦4,800</p>
+                </div>
+
+                <div class="package" onclick="selectPackage(this, '520 Diamonds', '₦8,000')">
+                    <h3>520 💎</h3>
+                    <p>₦8,000</p>
+                </div>
+
+                <div class="package" onclick="selectPackage(this, '1060 Diamonds', '₦16,000')">
+                    <h3>1060 💎</h3>
+                    <p>₦16,000</p>
+                </div>
+                <div class="package" onclick="selectPackage(this, '2180 Diamonds', '₦32,000')">
+    <h3>2180 💎</h3>
+    <p>₦32,000</p>
+</div>
+
+            </div>
+
+
+            <!-- Order Summary -->
+
+            <div class="summary">
+
+                <h3>ORDER SUMMARY</h3>
+
+                <p>
+                    Player ID:
+                    <span id="displayID">Not entered</span>
+                </p>
+
+                <p>
+                    Package:
+                    <span id="displayPackage">Not selected</span>
+                </p>
+
+                <p>
+                    Price:
+                    <span id="displayPrice">₦0</span>
+                </p>
+
+                <button onclick="placeOrder()">
+                    PLACE ORDER
+                </button>
+<button id="payButton" onclick="startPayment()" style="display:none;">
+    💳 PAY NOW
+</button>
+                <div id="paymentBox" style="display:none; margin-top:20px; padding:20px; border-radius:12px; background:#222; color:white;">
+
+    <h3>🏦 BANK TRANSFER</h3>
+
+    <p><b>Bank:</b> OPay</p>
+
+    <p><b>Account Name:</b> OMOBOWALE BISOYE RAHEEM</p>
+
+    <p>
+    <b>Account Number:</b>
+    <span id="accountNumber">6141891181</span>
+
+    <button
+        onclick="copyAccountNumber()"
+        style="margin-left:8px; padding:5px 10px; cursor:pointer;">
+        📋 COPY
+    </button>
+</p>
+
+    <p>
+        After making the transfer, tap the button below.
+    </p>
+
+    <button onclick="confirmTransfer()">
+        ✅ I HAVE MADE THE TRANSFER
+    </button>
+
+</div>
+                
+            </div>
+
+        </div>
+
+    </section>
+
+    
+    <!-- About -->
+    <section class="about" id="about">
+
+        <h2>ABOUT JOMZ SHOP</h2>
+
+        <p>
+            <b style="color: orange;">JOMZ SHOP</b> provides a safe,fast ,simple and reliable platform for customers
+            to place gaming top-up orders.
+        </p>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <h3>JOMZ SHOP</h3>
+
+        <p>Gaming • Top Up • Digital Services</p>
+
+        <p>© 2026 JOMZ SHOP</p>
+
+    </footer>
+
+    <button id="scrollTopBtn" onclick="scrollToTop()">BACK TO TOP</button>
+    
+    
+    <script src="script.js"></script>
+    
+    <!-- JOMZ SHOP CUSTOM POPUP -->
+<div id="jomzPopup" class="jomz-popup">
+    <div class="jomz-popup-box">
+
+        <h2 id="jomzPopupTitle">
+            JOMZ SHOP
+        </h2>
+
+        <p id="jomzPopupMessage">
+            Message goes here
+        </p>
+
+        <button onclick="closeJomzPopup()">
+            OK
+        </button>
+
+    </div>
+</div>
+
+</body>
+</html>
