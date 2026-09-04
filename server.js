@@ -57,6 +57,8 @@ const supabase = createClient(
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));
 });
