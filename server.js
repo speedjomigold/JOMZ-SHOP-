@@ -8,7 +8,7 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
-const session = require("express-session");
+const cookieSession = require("cookie-session");
 const rateLimit = require("express-rate-limit");
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -90,26 +90,19 @@ console.log(
     !!process.env.SESSION_SECRET
 );
 
+
+
 app.use(
-
-    session({
-
-        secret:
-            process.env.SESSION_SECRET,
-
-        resave: false,
-
-        saveUninitialized: false,
-
-        cookie: {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 24 * 60 * 60 * 1000
-}
-
+    cookieSession({
+        name: "jomz-session",
+        keys: [
+            process.env.SESSION_SECRET
+        ],
+        httpOnly: true,
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 24 * 60 * 60 * 1000
     })
-
 );
 
 
@@ -336,27 +329,23 @@ app.post(
         res
 
     ) => {
+        
+        req.session = null;
 
-        req.session.destroy(
+res.json({
 
-            () => {
+    success: true,
 
-                res.json({
+    message:
+        "Logged out successfully."
 
-                    success: true,
+});
 
-                    message:
-                        "Logged out successfully."
-
-                });
-
+ 
             }
 
         );
-
-    }
-
-);
+        
 
 
 // ==========================================
