@@ -405,13 +405,134 @@ if (topup) {
 }
 
 }
+// ==========================================
+// SHOW ORDER CONFIRMATION
+// ==========================================
 
+function placeOrder() {
+
+    // Check if JOMZ SHOP is open
+    if (!isPaymentActive()) {
+
+        const payButton =
+            document.getElementById("payButton");
+
+        if (payButton) {
+            payButton.style.display = "none";
+        }
+
+        showOrderClosedPopup();
+
+        return;
+    }
+
+
+    const playerIDElement =
+        document.getElementById("playerID");
+
+
+    const playerID =
+        playerIDElement.value.trim();
+
+
+    if (!playerID) {
+
+        alert(
+            "Please enter your Free Fire Player ID."
+        );
+
+        return;
+
+    }
+
+
+    if (!selectedPackage) {
+
+        alert(
+            "Please select a diamond package."
+        );
+
+        return;
+
+    }
+
+
+    const details =
+        document.getElementById(
+            "orderConfirmDetails"
+        );
+
+
+    if (details) {
+
+        details.innerHTML =
+            "<p><strong>Player ID:</strong> " +
+            playerID +
+            "</p>" +
+
+            "<p><strong>Package:</strong> " +
+            selectedPackage +
+            "</p>" +
+
+            "<p><strong>Price:</strong> ₦" +
+            selectedPrice +
+            "</p>";
+
+    }
+
+
+    const popup =
+        document.getElementById(
+            "orderConfirmPopup"
+        );
+
+
+    if (popup) {
+
+        popup.style.display = "flex";
+
+    }
+
+}
+
+
+// ==========================================
+// CLOSE CONFIRMATION POPUP
+// ==========================================
+
+function closeOrderConfirmPopup() {
+
+    const popup =
+        document.getElementById(
+            "orderConfirmPopup"
+        );
+
+    if (popup) {
+
+        popup.style.display = "none";
+
+    }
+
+}
+
+
+// ==========================================
+// CONFIRM ORDER
+// ==========================================
+
+function confirmOrder() {
+
+    closeOrderConfirmPopup();
+
+    submitOrder();
+
+}
 
 // ==========================================
 // PLACE ORDER
 // ==========================================
 
-function placeOrder() {
+function submitOrder() {
 
     const payButton =
     document.getElementById("payButton");

@@ -53,6 +53,41 @@
     </div>
 </div>
     
+    
+    <!-- ORDER CONFIRMATION POPUP -->
+<div id="orderConfirmPopup" class="payment-popup">
+
+    <div class="payment-popup-box">
+
+        <h2>✅ CONFIRM ORDER</h2>
+
+        <p>
+            Please confirm your order details.
+        </p>
+
+        <div id="orderConfirmDetails"></div>
+
+        <div class="confirm-buttons">
+
+            <button
+                type="button"
+                onclick="closeOrderConfirmPopup()"
+            >
+                CANCEL
+            </button>
+
+            <button
+                type="button"
+                onclick="confirmOrder()"
+            >
+                CONFIRM ORDER
+            </button>
+
+        </div>
+
+    </div>
+</div>
+    
     <!-- PAYMENT SCHEDULE POPUP -->
 <div id="paymentSchedulePopup" class="payment-popup">
     ...
@@ -72,18 +107,23 @@
 
     </div>
 </div>
-    
+    <div class="top-brand-header">
+    <span>JOMZ</span> <strong>SHOP</strong>
+</div>
     <!-- Header -->
-    <header>
-        <div class="logo">JOMZ <span>SHOP</span></div>
+    <header class="main-header">
 
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#topup">Top Up</a>
-            <a href="#about">About</a>
-        </nav>
-    </header>
+    <div class="logo">
+        <img src="jomzheader.png" alt="JOMZ SHOP">
+    </div>
 
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#topup">Top Up</a>
+        <a href="#about">About</a>
+    </nav>
+
+</header>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
@@ -96,6 +136,8 @@
                 Fast and easy Free Fire top-up services.
                 Select your package and place your order.
             </p>
+            
+            
 
             <button onclick="scrollToTopUp()">
                 TOP UP NOW

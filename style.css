@@ -1623,3 +1623,248 @@ footer p {
         transform: scale(1);
     }
 }
+
+
+
+
+/* ==========================================
+   CLEAN TEXT - REMOVE GLOW
+========================================== */
+
+body * {
+    text-shadow: none !important;
+}
+
+/* ==========================================
+   KEEP JOMZ SHOP LOADER TEXT GLOW
+========================================== */
+
+#jomzLoader .loader-logo,
+#jomzLoader .letter,
+#jomzLoader .shop-letter {
+    text-shadow:
+        0 0 10px currentColor,
+        0 0 20px currentColor,
+        0 0 30px currentColor !important;
+}
+
+/* ==========================================
+   JOMZ SHOP HEADER LOGO
+========================================== */
+
+header .logo img {
+    width: 150px;
+    height: 20px;
+    display: block;
+    object-fit: contain;
+}
+
+
+/* ==========================================
+   JOMZ SHOP HEADER
+========================================== */
+
+header {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    width: 100%;
+    padding: 10px 12px;
+}
+
+header .logo {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+header .logo img {
+    width: 115px !important;
+    height: auto !important;
+    display: block !important;
+}
+
+header nav {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 7px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex: 0 0 auto !important;
+}
+
+header nav a {
+    font-size: 7px !important;
+    white-space: nowrap !important;
+}
+
+
+/* ==========================================
+   PREMIUM JOMZ SHOP BRAND HEADER
+========================================== */
+
+.top-brand-header {
+    width: 100%;
+    text-align: center;
+
+    padding: 10px 0;
+
+    background: transparent;
+
+    font-size: 22px;
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    border-bottom: 2px solid orange;
+
+    box-shadow: 0 2px 12px rgba(255, 165, 0, 0.35);
+
+    position: relative;
+    z-index: 10;
+}
+
+.top-brand-header span {
+    color: white;
+}
+
+.top-brand-header strong {
+    color: orange;
+}
+
+
+
+/* ==========================================
+   JOMZ LOGO + NAVIGATION
+========================================== */
+
+.main-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 100%;
+
+    padding: 12px 10px 14px;
+
+    gap: 12px;
+}
+
+.main-header .logo {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.main-header .logo img {
+    width: 115px !important;
+    height: auto !important;
+    display: block !important;
+}
+
+.main-header nav {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 18px !important;
+
+    width: 100%;
+}
+
+.main-header nav a {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+
+    padding: 6px 4px;
+
+    white-space: nowrap !important;
+}
+
+
+
+/* ==========================================
+   LEFT ALIGN JOMZ SHOP LOGO
+========================================== */
+
+.main-header {
+    align-items: flex-start !important;
+}
+
+.main-header .logo {
+    align-self: flex-start !important;
+}
+
+.main-header nav {
+    justify-content: flex-start !important;
+}
+
+
+/* ==========================================
+   HEADER NAVIGATION DIVIDER
+========================================== */
+
+.main-header {
+    border-bottom: 1px solid rgba(255, 165, 0, 0.35);
+}
+
+
+/* ==========================================
+   BIGGER NAVIGATION SHORTCUTS
+========================================== */
+
+.main-header nav a {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    padding: 9px 12px !important;
+}
+
+
+
+/* ==========================================
+   HEADER SECTION SEPARATION
+========================================== */
+
+.main-header {
+    margin-bottom: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* ==========================================
+   JOMZ SHOP LOGO SIZE
+========================================== */
+
+.main-header .logo img {
+    width: 135px !important;
+    height: auto !important;
+}
+
+
+/* ==========================================
+   PREMIUM TOP BRAND HEADER
+========================================== */
+
+.top-brand-header {
+    padding: 13px 0 !important;
+    font-size: 24px !important;
+    letter-spacing: 4px !important;
+}
+
+
+/* ==========================================
+   RESPONSIVE BRAND HEADER
+========================================== */
+
+@media (max-width: 400px) {
+    .top-brand-header {
+        font-size: 20px !important;
+        letter-spacing: 3px !important;
+    }
+}
